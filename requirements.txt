@@ -4,3 +4,4 @@ statsmodels
 scipy
 seaborn
 scikit-learn
+openpyxl
