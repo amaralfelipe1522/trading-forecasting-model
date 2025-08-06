@@ -6,8 +6,24 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_absolute_error
 import joblib  # Para salvar modelos
+import boto3
+import os
 
-df = pd.read_excel('./data/historico_propostas.xlsx')
+# df = pd.read_excel('./data/historico_propostas.xlsx')
+bucket_name = 'my-dataset-study'
+file_key = 'historico_propostas.xlsx'
+
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+s3 = boto3.client('s3', 
+                  aws_access_key_id=aws_access_key_id,
+                  aws_secret_access_key=aws_secret_access_key,
+                  region_name='us-east-1')
+
+
+s3.download_file(bucket_name, file_key, 'historico_propostas.xlsx')
+df = pd.read_excel('historico_propostas.xlsx')
 
 codigos_materiais = df['CodigoMaterial'].unique()
 
