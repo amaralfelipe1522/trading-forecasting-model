@@ -9,8 +9,7 @@ import joblib  # Para salvar modelos
 import boto3
 import os
 
-# df = pd.read_excel('./data/historico_propostas.xlsx')
-bucket_name = 'my-dataset-study'
+raw_bucket_name = 'my-dataset-study'
 file_key = 'historico_propostas.xlsx'
 
 aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
@@ -22,8 +21,8 @@ s3 = boto3.client('s3',
                   region_name='us-east-1')
 
 
-s3.download_file(bucket_name, file_key, 'historico_propostas.xlsx')
-df = pd.read_excel('historico_propostas.xlsx')
+s3.download_file(raw_bucket_name, file_key, f'./data/{file_key}')
+df = pd.read_excel(f'./data/{file_key}')
 
 codigos_materiais = df['CodigoMaterial'].unique()
 
@@ -73,7 +72,15 @@ for codigo in codigos_materiais:
     print(f"MAE para material {codigo}: {mae:.2f}%")
 
     # Salvar o modelo
-    filename = f'models/modelo_material_{codigo}.joblib'
-    joblib.dump(model, filename)
-    print(f"Modelo salvo como {filename}")
+    filename = f'modelo_material_{codigo}.joblib'
+    local_path =  f'models/{filename}'
+    processed_bucket_name = 'processed-models'
 
+    joblib.dump(model, local_path)
+
+    # Upload para S3
+    s3.upload_file(local_path, processed_bucket_name, filename)
+
+    print(f"Modelo salvo como {filename} no bucket s3://{processed_bucket_name}/")
+
+    os.remove(local_path)
