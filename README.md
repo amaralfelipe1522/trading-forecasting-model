@@ -24,3 +24,18 @@ Boa generalização sem muito risco de overfitting.
 🔥 Árvores de Decisão Simples → se quiser algo extremamente interpretável, mas menos robusto.
 
 source ~/miniconda3/bin/activate
+
+
+aws sagemaker describe-pipeline-execution
+
+aws sagemaker list-pipeline-execution-steps  
+
+rm -rf __pycache__/
+python -c "import sagemaker_pipeline; print('OK')"
+python deploy_pipeline.py
+
+-----------------
+
+aws logs describe-log-groups --log-group-name-prefix "/aws/sagemaker/ProcessingJobs"
+
+aws sagemaker describe-processing-job --processing-job-name pipelines-enoevnv84534-TrainingModels-5xrhsWUyIS
