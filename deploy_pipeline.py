@@ -31,19 +31,6 @@ def deploy_and_run_pipeline():
         print(f"Erro ao executar pipeline: {str(e)}")
         return None
 
-def check_pipeline_status(execution_arn):
-    """Verifica status da execução do pipeline"""
-    client = boto3.client('sagemaker')
-    
-    response = client.describe_pipeline_execution(
-        PipelineExecutionArn=execution_arn
-    )
-    
-    status = response['PipelineExecutionStatus']
-    print(f"Status do pipeline: {status}")
-    
-    return status
-
 if __name__ == "__main__":
     execution = deploy_and_run_pipeline()
     

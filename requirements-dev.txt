@@ -1,0 +1,16 @@
+# Dependências para desenvolvimento local e notebooks
+pandas
+scikit-learn
+openpyxl
+boto3
+sagemaker
+jupyter
+ipywidgets
+
+# Visualização para análise exploratória
+matplotlib
+seaborn
+
+# Análise estatística (opcional para notebooks)
+statsmodels
+scipy

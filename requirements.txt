@@ -1,9 +1,0 @@
-pandas
-matplotlib
-statsmodels
-scipy
-seaborn
-scikit-learn
-openpyxl
-xlrd
-boto3

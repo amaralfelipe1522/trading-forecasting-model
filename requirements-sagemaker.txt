@@ -1,0 +1,10 @@
+# Dependências específicas para SageMaker ScriptProcessor
+# NOTA: SKLearnProcessor já inclui pandas, scikit-learn, scipy, numpy, joblib
+
+# Dependências extras necessárias
+openpyxl
+
+# Para usar este arquivo no SageMaker:
+# Trocar SKLearnProcessor por ScriptProcessor com:
+# image_uri='python:3.8'
+# E especificar este arquivo como dependência
